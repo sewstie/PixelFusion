@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/carousel";
 
 import { Button } from "@/components/UI/button";
-import { fetchCarousels } from "@/api/carouselApi";
+import { fetchCarousels } from "@/api/api";
 
 export const BASE_URL = "http://localhost:1337";
 
@@ -24,8 +24,8 @@ export function CarouselHero() {
   }, []);
 
   return (
-    <Carousel className="w-screen h-screen overflow-hidden relative">
-      <CarouselContent className="w-screen h-screen relative z-0 flex">
+    <Carousel className="w-srceen h-screen overflow-hidden relative">
+      <CarouselContent className="w-[101.5vw] h-screen relative">
         {carousels.map((carousel) => {
           const title = carousel.Title || "No Title";
           const description = carousel.Description || "No Description";
@@ -36,26 +36,26 @@ export function CarouselHero() {
           return (
             <CarouselItem
               key={carousel.id}
-              className="w-screen h-screen flex-shrink-0 relative z-10"
+              className="pl-0 w-sreen h-screen flex-shrink-0 relative z-10"
             >
               {videoUrl ? (
                 <video
-                  className="w-full h-full object-cover"
+                  className="h-full object-cover"
                   src={videoUrl}
                   autoPlay
                   loop
                   muted
                 ></video>
               ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gray-200">
+                <div className="h-full flex items-center justify-center bg-gray-200">
                   <p>Video not available</p>
                 </div>
               )}
               <div className="absolute top-0 left-0 z-20 w-full h-full">
                 <div className="container mx-auto flex flex-col justify-end h-full pb-12">
-                  <h1 className="title text-4xl">{title}</h1>
+                  <h1 className="title text-5xl">{title}</h1>
                   <div className="flex justify-between mt-4">
-                    <p className="text text-xl">{description}</p>
+                    <p className="text text-2xl">{description}</p>
                     <Button className="w-36 h-12 text-xl">Play</Button>
                   </div>
                 </div>
