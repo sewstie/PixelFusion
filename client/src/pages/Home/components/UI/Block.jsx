@@ -12,7 +12,7 @@ const Block = ({ title, link, backgroundImage }) => {
 
   return (
     <div
-      className="gradient-border flex flex-col justify-end w-96 h-56 cursor-pointer relative"
+      className="gradient-border flex flex-col justify-end w-96 h-56 cursor-pointer relative mt-4"
       onClick={handleClick}
     >
       <img
