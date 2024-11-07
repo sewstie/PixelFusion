@@ -18,8 +18,8 @@ const GameList = () => {
   }, []);
 
   return (
-    <section className="container mx-auto py-20">
-      <h3 className="title pb-12 text-4xl">Our Games</h3>
+    <section className="container mx-auto py-16">
+      <h3 className="title pb-6 text-4xl">Our Games</h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {games.map((game) => (
           <Block

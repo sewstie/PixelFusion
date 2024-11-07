@@ -19,12 +19,17 @@
       "type": "text"
     },
     "Gameplay": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "files",
         "videos"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "Title"
     }
   }
 }

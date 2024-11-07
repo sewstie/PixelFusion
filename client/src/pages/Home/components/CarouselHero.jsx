@@ -10,12 +10,14 @@ import { Button } from "@/components/UI/button";
 import { fetchCarousels } from "@/api/api";
 import EmblaCarousel from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { useNavigate } from "react-router-dom";
 
 export const BASE_URL = "http://localhost:1337";
 
 export function CarouselHero() {
   const [carousels, setCarousels] = useState([]);
   const emblaRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getCarousels = async () => {
@@ -36,6 +38,12 @@ export function CarouselHero() {
     }
   }, [carousels]);
 
+  const handleClick = (slug) => {
+    if (slug) {
+      navigate(`/game/${slug}`);
+    }
+  };
+
   return (
     <div className="w-screen h-screen overflow-hidden relative">
       <Carousel
@@ -45,7 +53,7 @@ export function CarouselHero() {
         }}
         plugins={[
           Autoplay({
-            delay: 2000,
+            delay: 4000,
           }),
         ]}
       >
@@ -57,6 +65,7 @@ export function CarouselHero() {
               const videoUrl = carousel.Gameplay?.hash
                 ? `${BASE_URL}/uploads/${carousel.Gameplay.hash}.mp4`
                 : null;
+              const slug = carousel.slug || "";
 
               return (
                 <CarouselItem
@@ -81,7 +90,12 @@ export function CarouselHero() {
                       <h1 className="title text-5xl">{title}</h1>
                       <div className="flex justify-between mt-4">
                         <p className="text text-2xl">{description}</p>
-                        <Button className="w-36 h-12 text-xl">Play</Button>
+                        <Button
+                          className="w-36 h-12 text-xl"
+                          onClick={() => handleClick(slug)}
+                        >
+                          Play
+                        </Button>
                       </div>
                     </div>
                   </div>
