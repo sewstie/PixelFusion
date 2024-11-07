@@ -5,7 +5,10 @@ const Home = () => {
   return (
     <>
       <CarouselHero />
-      <GameList />
+      <section className="container mx-auto py-16">
+        <h3 className="title text-4xl pb-8">Our Games</h3>
+        <GameList />
+      </section>
     </>
   );
 };

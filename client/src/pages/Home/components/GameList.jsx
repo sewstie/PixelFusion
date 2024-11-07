@@ -18,23 +18,18 @@ const GameList = () => {
   }, []);
 
   return (
-    <section className="container mx-auto py-16">
-      <h3 className="title pb-6 text-4xl">Our Games</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {games.map((game) => (
-          <Block
-            key={game.id || game.slug}
-            title={game.Title || "No Title Available"}
-            backgroundImage={
-              game.backgroundImage
-                ? `${BASE_URL}${game.backgroundImage.url}`
-                : ""
-            }
-            link={`/game/${game.slug || ""}`}
-          />
-        ))}
-      </div>
-    </section>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {games.map((game) => (
+        <Block
+          key={game.id || game.slug}
+          title={game.Title || "No Title Available"}
+          backgroundImage={
+            game.backgroundImage ? `${BASE_URL}${game.backgroundImage.url}` : ""
+          }
+          link={`/game/${game.slug || ""}`}
+        />
+      ))}
+    </div>
   );
 };
 
