@@ -74,7 +74,7 @@ export function CarouselHero() {
                 >
                   {videoUrl ? (
                     <video
-                      className="h-full object-cover"
+                      className="h-full object-cover w-full"
                       src={videoUrl}
                       autoPlay
                       loop

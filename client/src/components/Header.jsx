@@ -17,8 +17,8 @@ const Header = () => {
             <Link to="/browse" className="navbar">
               Browse Games
             </Link>
-            <Link to="/support" className="navbar">
-              Support
+            <Link to="/contact" className="navbar">
+              Contact
             </Link>
           </nav>
           <Button size="xl" className="text-lg h-12">
