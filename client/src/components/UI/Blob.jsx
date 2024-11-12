@@ -3,7 +3,7 @@ import React from "react";
 const Blob = () => {
   return (
     <svg
-      class="absolute blur-3xl right-0 opacity-80 z-[-99] opacity-40"
+      class="absolute blur-3xl right-0 z-[-99] opacity-40"
       width="50%"
       height="100%"
       viewBox="0 0 400 400"

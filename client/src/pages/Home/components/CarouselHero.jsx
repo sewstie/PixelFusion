@@ -7,28 +7,26 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/UI/button";
-import { fetchCarousels } from "@/api/api";
+import { fetchGames, BASE_URL } from "@/api/api";
 import EmblaCarousel from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useNavigate } from "react-router-dom";
 
-export const BASE_URL = "http://localhost:1337";
-
 export function CarouselHero() {
-  const [carousels, setCarousels] = useState([]);
+  const [games, setGames] = useState([]);
   const emblaRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getCarousels = async () => {
-      const carouselData = await fetchCarousels();
-      setCarousels(carouselData);
+    const getGames = async () => {
+      const gamesData = await fetchGames();
+      setGames(gamesData);
     };
-    getCarousels();
+    getGames();
   }, []);
 
   useEffect(() => {
-    if (emblaRef.current && carousels.length > 0) {
+    if (emblaRef.current && games.length > 0) {
       const emblaInstance = EmblaCarousel(
         emblaRef.current,
         { loop: true, watchDrag: false },
@@ -36,7 +34,7 @@ export function CarouselHero() {
       );
       return () => emblaInstance.destroy();
     }
-  }, [carousels]);
+  }, [games]);
 
   const handleClick = (slug) => {
     if (slug) {
@@ -59,17 +57,17 @@ export function CarouselHero() {
       >
         <div className="w-screen h-screen overflow-hidden" ref={emblaRef}>
           <CarouselContent className="w-[101.5vw] h-screen relative">
-            {carousels.map((carousel) => {
-              const title = carousel.Title || "No Title";
-              const description = carousel.Description || "No Description";
-              const videoUrl = carousel.Gameplay?.hash
-                ? `${BASE_URL}/uploads/${carousel.Gameplay.hash}.mp4`
+            {games.map((game) => {
+              const title = game.Title || "No Title";
+              const description = game.Description || "No Description";
+              const videoUrl = game.Gameplay?.hash
+                ? `${BASE_URL}/uploads/${game.Gameplay.hash}.mp4`
                 : null;
-              const slug = carousel.slug || "";
+              const slug = game.slug || "";
 
               return (
                 <CarouselItem
-                  key={carousel.id}
+                  key={game.id}
                   className="w-screen h-screen flex-shrink-0 relative z-10"
                 >
                   {videoUrl ? (

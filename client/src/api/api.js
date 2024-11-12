@@ -2,26 +2,23 @@ import axios from "axios";
 
 export const BASE_URL = "http://localhost:1337";
 
-export const fetchCarousels = async () => {
+const fetchData = async (endpoint) => {
   try {
-    const response = await axios.get(
-      `${BASE_URL}/api/carousels?populate=Gameplay`
-    );
+    const response = await axios.get(`${BASE_URL}/api/${endpoint}`);
     return response.data.data;
   } catch (error) {
-    console.error("Error fetching carousels:", error);
+    console.error(`Error fetching ${endpoint}:`, error);
     return [];
   }
 };
 
+// Remove the fetchCarousels function
+// export const fetchCarousels = async () => {
+//   return await fetchData('carousels?populate=Gameplay');
+// };
+
 export const fetchGames = async () => {
-  try {
-    const response = await axios.get(
-      `${BASE_URL}/api/games?populate=backgroundImage&fields=Title,slug&pagination[limit]=9`
-    );
-    return response.data.data;
-  } catch (error) {
-    console.error("Error fetching games:", error);
-    return [];
-  }
+  return await fetchData(
+    "games?populate[0]=Gameplay&populate[1]=backgroundImage&fields[0]=Title&fields[1]=Description&fields[2]=slug&pagination[limit]=9"
+  );
 };

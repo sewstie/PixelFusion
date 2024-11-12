@@ -7,12 +7,8 @@ const GameList = () => {
 
   useEffect(() => {
     const getGames = async () => {
-      try {
-        const gamesData = await fetchGames();
-        setGames(gamesData);
-      } catch (error) {
-        console.error("Error fetching games:", error);
-      }
+      const gamesData = await fetchGames();
+      setGames(gamesData);
     };
     getGames();
   }, []);
