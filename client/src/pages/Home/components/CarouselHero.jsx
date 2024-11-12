@@ -57,7 +57,7 @@ export function CarouselHero() {
       >
         <div className="w-screen h-screen overflow-hidden" ref={emblaRef}>
           <CarouselContent className="w-[101.5vw] h-screen relative">
-            {games.map((game) => {
+            {games.slice(0, 4).map((game) => {
               const title = game.Title || "No Title";
               const description = game.Description || "No Description";
               const videoUrl = game.Gameplay?.hash
