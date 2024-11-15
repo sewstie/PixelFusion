@@ -26,22 +26,29 @@
       "required": true
     },
     "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
       "allowedTypes": [
         "images",
         "files"
-      ],
-      "type": "media",
-      "multiple": false,
-      "required": true
+      ]
     },
     "Gameplay": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "files",
         "videos"
+      ]
+    },
+    "Unity": {
+      "allowedTypes": [
+        "files"
       ],
       "type": "media",
-      "multiple": false,
-      "required": false
+      "multiple": true
     }
   }
 }

@@ -394,6 +394,7 @@ export interface ApiGameGame extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     slug: Schema.Attribute.UID<'Title'> & Schema.Attribute.Required;
     Title: Schema.Attribute.String & Schema.Attribute.Required;
+    Unity: Schema.Attribute.Media<'files', true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

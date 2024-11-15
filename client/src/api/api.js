@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const BASE_URL = "http://localhost:1337";
 
-const fetchData = async (endpoint) => {
+export const fetchData = async (endpoint) => {
   try {
     const response = await axios.get(`${BASE_URL}/api/${endpoint}`);
     return response.data.data;

@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home/Home";
 import Browse from "./pages/Browse/Browse";
 import Contact from "./pages/Contact/Contact";
+import Game from "./pages/Game/Game";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/browse" element={<Browse />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/game/:slug" element={<Game />} />
         </Routes>
       </section>
       <Footer />
