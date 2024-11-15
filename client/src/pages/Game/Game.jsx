@@ -6,6 +6,7 @@ import { Button } from "@/components/UI/button";
 const Game = () => {
   const { slug } = useParams();
   const [game, setGame] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,13 +20,23 @@ const Game = () => {
         } else {
           setGame(null);
         }
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching game data:", error);
         setGame(null);
+        setLoading(false);
       }
     };
     getGame();
   }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   if (game === null) {
     return <p>Game not found.</p>;
