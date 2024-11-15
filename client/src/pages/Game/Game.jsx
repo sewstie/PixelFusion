@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { fetchData, BASE_URL } from "@/api/api";
+import { Button } from "@/components/UI/button";
 
 const Game = () => {
   const { slug } = useParams();
   const [game, setGame] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getGame = async () => {
@@ -26,7 +28,7 @@ const Game = () => {
   }, [slug]);
 
   if (game === null) {
-    return <p>Game not found.</p>; // Display a message if the game is not found
+    return <p>Game not found.</p>;
   }
 
   const { Title, Description, backgroundImage, UnityFile } = game;
@@ -57,6 +59,7 @@ const Game = () => {
         )}
         <p className="text mt-4">{Description}</p>
         {/* Add more game details here */}
+        <Button onClick={() => navigate("/")}>Back to Home</Button>
       </section>
     </>
   );

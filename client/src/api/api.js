@@ -12,13 +12,8 @@ export const fetchData = async (endpoint) => {
   }
 };
 
-// Remove the fetchCarousels function
-// export const fetchCarousels = async () => {
-//   return await fetchData('carousels?populate=Gameplay');
-// };
-
 export const fetchGames = async () => {
   return await fetchData(
-    "games?populate[0]=Gameplay&populate[1]=backgroundImage&fields[0]=Title&fields[1]=Description&fields[2]=slug&pagination[limit]=9"
+    "games?populate[]=Gameplay&populate[]=backgroundImage&fields[]=Title&fields[]=Description&fields[]=slug&pagination[limit]=9"
   );
 };

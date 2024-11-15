@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -12,7 +12,7 @@ import EmblaCarousel from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useNavigate } from "react-router-dom";
 
-export function CarouselHero() {
+const CarouselHero = () => {
   const [games, setGames] = useState([]);
   const emblaRef = useRef(null);
   const navigate = useNavigate();
@@ -36,6 +36,52 @@ export function CarouselHero() {
     }
   }, [games]);
 
+  const carouselItems = useMemo(() => {
+    return games.slice(0, 4).map((game) => {
+      const title = game.Title || "No Title";
+      const description = game.Description || "No Description";
+      const videoUrl = game.Gameplay?.hash
+        ? `${BASE_URL}/uploads/${game.Gameplay.hash}.mp4`
+        : null;
+      const slug = game.slug || "";
+
+      return (
+        <CarouselItem
+          key={game.id}
+          className="w-screen h-screen flex-shrink-0 relative z-10"
+        >
+          {videoUrl ? (
+            <video
+              className="h-full object-cover w-full"
+              src={videoUrl}
+              autoPlay
+              loop
+              muted
+            ></video>
+          ) : (
+            <div className="h-full flex items-center justify-center bg-gray-200">
+              <p>Video not available</p>
+            </div>
+          )}
+          <div className="absolute top-0 left-0 z-20 w-full h-full">
+            <div className="container mx-auto flex flex-col justify-end h-full pb-12">
+              <h1 className="title text-5xl">{title}</h1>
+              <div className="flex justify-between mt-4">
+                <p className="text text-2xl">{description}</p>
+                <Button
+                  className="w-36 h-12 text-xl"
+                  onClick={() => handleClick(slug)}
+                >
+                  Play
+                </Button>
+              </div>
+            </div>
+          </div>
+        </CarouselItem>
+      );
+    });
+  }, [games]);
+
   const handleClick = (slug) => {
     if (slug) {
       navigate(`/game/${slug}`);
@@ -57,49 +103,7 @@ export function CarouselHero() {
       >
         <div className="w-screen h-screen overflow-hidden" ref={emblaRef}>
           <CarouselContent className="w-[101.5vw] h-screen relative">
-            {games.slice(0, 4).map((game) => {
-              const title = game.Title || "No Title";
-              const description = game.Description || "No Description";
-              const videoUrl = game.Gameplay?.hash
-                ? `${BASE_URL}/uploads/${game.Gameplay.hash}.mp4`
-                : null;
-              const slug = game.slug || "";
-
-              return (
-                <CarouselItem
-                  key={game.id}
-                  className="w-screen h-screen flex-shrink-0 relative z-10"
-                >
-                  {videoUrl ? (
-                    <video
-                      className="h-full object-cover w-full"
-                      src={videoUrl}
-                      autoPlay
-                      loop
-                      muted
-                    ></video>
-                  ) : (
-                    <div className="h-full flex items-center justify-center bg-gray-200">
-                      <p>Video not available</p>
-                    </div>
-                  )}
-                  <div className="absolute top-0 left-0 z-20 w-full h-full">
-                    <div className="container mx-auto flex flex-col justify-end h-full pb-12">
-                      <h1 className="title text-5xl">{title}</h1>
-                      <div className="flex justify-between mt-4">
-                        <p className="text text-2xl">{description}</p>
-                        <Button
-                          className="w-36 h-12 text-xl"
-                          onClick={() => handleClick(slug)}
-                        >
-                          Play
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </CarouselItem>
-              );
-            })}
+            {carouselItems}
           </CarouselContent>
         </div>
         <div className="container absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-between">
@@ -109,4 +113,6 @@ export function CarouselHero() {
       </Carousel>
     </div>
   );
-}
+};
+
+export default CarouselHero;

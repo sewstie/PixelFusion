@@ -1,4 +1,4 @@
-import { CarouselHero } from "./components/CarouselHero";
+import CarouselHero from "./components/CarouselHero";
 import GameList from "./components/GameList";
 import Blob from "../../components/UI/Blob";
 

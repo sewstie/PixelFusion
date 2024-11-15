@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -8,10 +13,15 @@ import Browse from "./pages/Browse/Browse";
 import Contact from "./pages/Contact/Contact";
 import Game from "./pages/Game/Game";
 
+const HeaderWrapper = () => {
+  const location = useLocation();
+  return !location.pathname.startsWith("/game") && <Header />;
+};
+
 function App() {
   return (
     <Router>
-      <Header />
+      <HeaderWrapper />
       <section>
         <Routes>
           <Route path="/" element={<Home />} />
