@@ -15,7 +15,7 @@ const Game = () => {
           `games?filters[slug][$eq]=${slug}&populate=*`
         );
         if (gameData && gameData.length > 0) {
-          setGame(gameData[0]); // Use the game object directly
+          setGame(gameData[0]);
         } else {
           setGame(null);
         }
@@ -40,26 +40,24 @@ const Game = () => {
         <iframe
           src={unityGameUrl}
           title={Title}
-          className="w-full h-screen pt"
+          className="w-full min-h-[600px] h-screen pt"
           allowFullScreen
         ></iframe>
       ) : (
-        <div className="w-full h-screen bg-white flex items-center justify-center">
+        <div className="w-full min-h-[600px] h-screen bg-white flex items-center justify-center">
           <p className="text-xl">Not found</p>
         </div>
       )}
-      <section className="container mx-auto pt-4 pb-12">
-        <h1 className="title text-center text-4xl pb-8">{Title}</h1>
-        {backgroundImage && backgroundImage.data && (
-          <img
-            src={`${BASE_URL}${backgroundImage.data.attributes.url}`}
-            alt={Title}
-            className="w-full h-auto"
-          />
-        )}
-        <p className="text mt-4">{Description}</p>
-        {/* Add more game details here */}
-        <Button onClick={() => navigate("/")}>Back to Home</Button>
+      <section className="container mx-auto pb-12 flex justify-between py-12">
+        <div className="flex flex-col">
+          <h1 className="title text-4xl">{Title}</h1>
+          <p className="text text-xl mt-4">{Description}</p>
+        </div>
+        <div className="flex flex-col justify-center">
+          <Button className="w-44 h-14 text-lg" onClick={() => navigate("/")}>
+            Back to Home
+          </Button>
+        </div>
       </section>
     </>
   );

@@ -36,7 +36,12 @@ body {
 
 .gradient-border {
   border: 1.5px solid;
-  border-image: linear-gradient(335deg, #f61d64 100%, #f93766 50%, #f83d8e 0%);
+  border-image: linear-gradient(
+    335deg,
+    rgba(246, 29, 100, 0.7) 100%,
+    rgba(249, 55, 102, 0.7) 50%,
+    rgba(248, 61, 142, 0.7) 0%
+  );
   border-image-slice: 1;
 }
 
