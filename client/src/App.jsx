@@ -12,6 +12,7 @@ import Home from "./pages/Home/Home";
 import Browse from "./pages/Browse/Browse";
 import Contact from "./pages/Contact/Contact";
 import Game from "./pages/Game/Game";
+import SignIn from "./pages/SignIn/SignIn";
 
 const HeaderWrapper = () => {
   const location = useLocation();
@@ -39,6 +40,7 @@ function App() {
           <Route path="/browse" element={<Browse />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/game/:slug" element={<Game />} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
       </section>
       <Footer />
