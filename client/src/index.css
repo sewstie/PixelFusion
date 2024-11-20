@@ -58,6 +58,33 @@ body {
   .title {
     @apply text-title font-roboto text-xl;
   }
+
+  .gradient-border {
+    @apply border-[1.5px] rounded;
+    border-image: linear-gradient(
+        335deg,
+        rgba(246, 29, 100, 0.7) 100%,
+        rgba(249, 55, 102, 0.7) 50%,
+        rgba(248, 61, 142, 0.7) 0%
+      )
+      1;
+  }
+
+  .form-label {
+    @apply block text-white mb-2;
+  }
+
+  .input-field {
+    @apply w-full p-2 border bg-gray-900 text-white rounded;
+  }
+
+  .error-text {
+    @apply text-red-500 text-sm mt-1;
+  }
+
+  .icon-eye {
+    @apply absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 cursor-pointer;
+  }
 }
 
 @layer base {

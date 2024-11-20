@@ -30,13 +30,23 @@ const Footer = () => {
             <div className="flex justify-between flex-col w-full lg:w-auto">
               <h3 className="title">Stay Updated</h3>
               <div className="flex flex-col ">
-                <a className="text" href="">
+                <Link className="text" to="/license">
                   License
-                </a>
-                <a className="text" href="">
+                </Link>
+                <a
+                  className="text"
+                  href="https://www.instagram.com/your-instagram"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   @PixelFusion
                 </a>
-                <a className="text" href="">
+                <a
+                  className="text"
+                  href="https://x.com/your-twitter"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Twitter
                 </a>
               </div>
@@ -47,7 +57,7 @@ const Footer = () => {
                 <Link to="/" className="text">
                   Home
                 </Link>
-                <Link to="/Account" className="text">
+                <Link to="/signin" className="text">
                   Account
                 </Link>
                 <Link to="/browse" className="text">
