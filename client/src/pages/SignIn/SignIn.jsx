@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../../components/UI/button";
 import { Link } from "react-router-dom";
+import Blob from "../../components/UI/Blob";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -29,8 +30,9 @@ const SignIn = () => {
   };
 
   return (
-    <section className="container mx-auto pt-32 pb-20">
-      <div className="max-w-md mx-auto p-8 gradient-border">
+    <section className="container mx-auto pt-32 pb-20 relative overflow-hidden">
+      <Blob />
+      <div className="max-w-md mx-auto p-8 gradient-border bg-bg">
         <h2 className="text-3xl mb-2 text-center text-title font-roboto">
           Welcome Back
         </h2>
@@ -75,7 +77,7 @@ const SignIn = () => {
                 }
                 alt="Toggle visibility"
                 onClick={handlePasswordToggle}
-                className="icon-eye absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer" // Changed left-2 to right-2
+                className="icon-eye absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer"
               />
             </div>
             {password && !isPasswordValid() && (
@@ -101,7 +103,6 @@ const SignIn = () => {
             size="default"
             className="w-full flex items-center justify-center mb-6"
           >
-            {/* Google logo */}
             <span className="ml-2">Sign in with Google</span>
           </Button>
           <div className="text-center text-white mb-4">Or With</div>

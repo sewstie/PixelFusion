@@ -44,7 +44,8 @@ function App() {
           <Route path="/game/:slug" element={<Game />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/password-reset" element={<PasswordReset />} />
+          <Route path="/forgot-password" element={<PasswordReset />} />{" "}
+          {/* Corrected path */}
         </Routes>
       </section>
       <Footer />

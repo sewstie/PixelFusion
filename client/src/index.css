@@ -83,7 +83,7 @@ body {
   }
 
   .icon-eye {
-    @apply absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 cursor-pointer;
+    @apply absolute right-8 top-1/2 transform -translate-y-1/2 w-5 h-5 cursor-pointer;
   }
 }
 

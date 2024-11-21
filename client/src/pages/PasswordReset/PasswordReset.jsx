@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../../components/UI/button";
+import { Link } from "react-router-dom";
+import Blob from "../../components/UI/Blob";
 
 const PasswordReset = () => {
   const [email, setEmail] = useState("");
@@ -14,13 +16,14 @@ const PasswordReset = () => {
   };
 
   return (
-    <section className="container mx-auto pt-32 pb-12">
-      <div className="max-w-md mx-auto p-8 gradient-border">
+    <section className="container mx-auto pt-32 pb-20 relative overflow-hidden">
+      <Blob />
+      <div className="max-w-md mx-auto p-8 gradient-border bg-bg rounded-lg">
         <h2 className="text-3xl mb-2 text-center text-title font-roboto">
           Reset Password
         </h2>
         <p className="text-xl text-center mb-6 text-text font-inter">
-          Enter your email to reset your password
+          Please enter your email address to reset your password.
         </p>
         <form>
           <div className="mb-4">
@@ -43,10 +46,9 @@ const PasswordReset = () => {
           </Button>
         </form>
         <p className="text-white text-center mt-6">
-          Remembered your password?{" "}
-          <a href="/signin" className="text-focus underline">
-            Sign In
-          </a>
+          <Link to="/signin" className="text-focus underline">
+            Return to Login
+          </Link>
         </p>
       </div>
     </section>

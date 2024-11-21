@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Button } from "../../components/UI/button";
+import { Link } from "react-router-dom";
+import Blob from "../../components/UI/Blob";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
@@ -23,6 +26,10 @@ const SignUp = () => {
     setConfirmPassword(e.target.value);
   };
 
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
   const isEmailValid = () => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);
@@ -37,8 +44,9 @@ const SignUp = () => {
   };
 
   return (
-    <section className="container mx-auto pt-32 pb-12">
-      <div className="max-w-md mx-auto p-8 gradient-border">
+    <section className="container mx-auto pt-32 pb-20 relative overflow-hidden">
+      <Blob />
+      <div className="max-w-md mx-auto p-8 gradient-border bg-bg rounded-lg">
         <h2 className="text-3xl mb-2 text-center text-title font-roboto">
           Create an Account
         </h2>
@@ -46,6 +54,16 @@ const SignUp = () => {
           Please enter your details
         </p>
         <form>
+          <div className="mb-4">
+            <label className="form-label">Username</label>
+            <input
+              type="text"
+              placeholder="Enter your username"
+              className="input-field"
+              value={username}
+              onChange={handleUsernameChange}
+            />
+          </div>
           <div className="mb-4">
             <label className="form-label">Email</label>
             <input
@@ -92,10 +110,10 @@ const SignUp = () => {
               </p>
             )}
           </div>
-          <div className="mb-4">
+          <div className="mb-4 relative">
             <label className="form-label">Confirm Password</label>
             <input
-              type="password"
+              type="text" // Changed to text to make it visible by default
               placeholder="Confirm your password"
               className={`input-field ${
                 confirmPassword && !isConfirmPasswordValid()
@@ -109,15 +127,23 @@ const SignUp = () => {
               <p className="error-text">Passwords do not match.</p>
             )}
           </div>
+          <Button
+            variant="outline"
+            size="default"
+            className="w-full flex items-center justify-center mb-6"
+          >
+            <span className="ml-2">Sign up with Google</span>
+          </Button>
+          <div className="text-center text-white mb-4">Or With</div>
           <Button variant="default" size="default" className="w-full">
             Sign Up
           </Button>
         </form>
         <p className="text-white text-center mt-6">
           Already have an account?{" "}
-          <a href="/signin" className="text-focus underline">
-            Sign In
-          </a>
+          <Link to="/signin" className="text-focus underline">
+            Login
+          </Link>
         </p>
       </div>
     </section>
