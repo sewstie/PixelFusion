@@ -15,6 +15,7 @@ import Game from "./pages/Game/Game";
 import SignIn from "./pages/SignIn/SignIn";
 import SignUp from "./pages/SignUp/SignUp";
 import PasswordReset from "./pages/PasswordReset/PasswordReset";
+import License from "./pages/License";
 
 const HeaderWrapper = () => {
   const location = useLocation();
@@ -45,7 +46,7 @@ function App() {
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<PasswordReset />} />{" "}
-          {/* Corrected path */}
+          <Route path="/license" element={<License />} />
         </Routes>
       </section>
       <Footer />
