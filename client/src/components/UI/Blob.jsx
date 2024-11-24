@@ -1,10 +1,10 @@
 import React from "react";
 import "./Blob.css";
 
-const Blob = () => {
+const Blob = ({ className }) => {
   return (
     <svg
-      className="blob-animation absolute blur-3xl right-[30%] z-[-99] opacity-40"
+      className={`${className} absolute blur-3xl right-[30%] z-[-99] opacity-40`}
       width="50%"
       height="100%"
       viewBox="0 0 400 400"

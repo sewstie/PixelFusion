@@ -5,7 +5,7 @@ import Blob from "../../components/UI/Blob";
 const EmailConfirmation = () => {
   return (
     <section className="container mx-auto pt-32 pb-20 relative overflow-hidden">
-      <Blob />
+      <Blob className="blob-animation" />
       <div className="max-w-md mx-auto p-8 gradient-border bg-bg rounded-lg text-center">
         <img
           src="../src/assets/envelope.svg"

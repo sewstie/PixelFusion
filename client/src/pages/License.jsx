@@ -65,4 +65,4 @@ const License = () => {
   );
 };
 
-export { License };
+export default License;

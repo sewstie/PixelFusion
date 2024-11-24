@@ -31,7 +31,7 @@ const SignIn = () => {
 
   return (
     <section className="container mx-auto pt-32 pb-20 relative overflow-hidden">
-      <Blob />
+      <Blob className="blob-animation" />
       <div className="max-w-md mx-auto p-8 gradient-border bg-bg">
         <h2 className="text-3xl mb-2 text-center text-title font-roboto">
           Welcome Back

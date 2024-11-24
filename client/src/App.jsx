@@ -16,6 +16,7 @@ import SignIn from "./pages/SignIn/SignIn";
 import SignUp from "./pages/SignUp/SignUp";
 import PasswordReset from "./pages/PasswordReset/PasswordReset";
 import License from "./pages/License";
+import Account from "./pages/Account/Account";
 
 const HeaderWrapper = () => {
   const location = useLocation();
@@ -47,6 +48,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<PasswordReset />} />{" "}
           <Route path="/license" element={<License />} />
+          <Route path="/account" element={<Account />} />
         </Routes>
       </section>
       <Footer />
