@@ -7,7 +7,7 @@ import signInIcon from "../assets/account.svg";
 
 const Header = () => {
   return (
-    <section className="fixed z-50 w-full bg-bg h-20 flex items-center">
+    <section className="px-2 fixed z-50 w-full bg-bg h-20 flex items-center">
       <div className="container mx-auto">
         <div className="flex justify-between">
           <Link to="/" className="navbar">

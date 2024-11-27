@@ -10,13 +10,13 @@ import Footer from "./components/Footer";
 
 import Home from "./pages/Home/Home";
 import Browse from "./pages/Browse/Browse";
-import Contact from "./pages/Contact/Contact";
 import Game from "./pages/Game/Game";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import PasswordReset from "./pages/PasswordReset/PasswordReset";
 import License from "./pages/License";
 import Account from "./pages/Account/Account";
+import AddGame from "./pages/AddGame/AddGame";
 
 const HeaderWrapper = () => {
   const location = useLocation();
@@ -42,13 +42,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/browse" element={<Browse />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="/game/:slug" element={<Game />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<PasswordReset />} />{" "}
           <Route path="/license" element={<License />} />
           <Route path="/account" element={<Account />} />
+          <Route path="/add-your-game" element={<AddGame />} />
         </Routes>
       </section>
       <Footer />

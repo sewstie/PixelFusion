@@ -4,6 +4,7 @@ import Blob from "../../components/UI/Blob";
 import { fetchGames, BASE_URL } from "@/api/api";
 import Block from "../Home/components/UI/Block";
 import accountIcon from "../../assets/account.svg";
+import { Input } from "@/components/ui/input";
 
 const Account = () => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
@@ -87,10 +88,10 @@ const Account = () => {
           <div className="w-1/3">
             <label className="form-label">Current Password</label>
             <div className="relative">
-              <input
+              <Input
                 type={showCurrentPassword ? "text" : "password"}
                 placeholder="Enter your current password"
-                className="input-field border-focus relative pr-10"
+                className="relative pr-10"
                 value={currentPassword}
                 onChange={handleInputChange(setCurrentPassword)}
               />
@@ -109,10 +110,10 @@ const Account = () => {
           <div className="w-1/3">
             <label className="form-label">New Password</label>
             <div className="relative">
-              <input
+              <Input
                 type={showNewPassword ? "text" : "password"}
                 placeholder="Enter your new password"
-                className="input-field border-focus relative pr-10"
+                className="relative pr-10"
                 value={newPassword}
                 onChange={handleInputChange(setNewPassword)}
               />
@@ -142,10 +143,9 @@ const Account = () => {
           </div>
           <div className="w-1/3">
             <label className="form-label">Confirm Password</label>
-            <input
-              type="text"
+            <Input
+              type="password"
               placeholder="Confirm your new password"
-              className="input-field border-focus relative"
               value={confirmPassword}
               onChange={handleInputChange(setConfirmPassword)}
             />

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
 import logo from "../assets/logo.svg";
 import { Button } from "@/components/UI/button";
+import { Input } from "@/components/ui/input";
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +17,7 @@ const Footer = () => {
   return (
     <section className="border-b relatve bg-bg-900/20 border-white/5 backdrop-blur-2xl lg:bg-vulcan-900/0 pb-8 pt-5">
       <div className="container mx-auto">
-        <div className="flex justify-between lg:gap-12 flex-wrap">
+        <div className="flex justify-between lg:gap-12 flex-wrap mx-2">
           <div className="flex flex-col justify-between gap-8">
             <Link to="/">
               <img src={logo} className="w-52" alt="Logo" />
@@ -30,20 +30,24 @@ const Footer = () => {
           <div className="flex flex-col justify-between">
             <h3 className="title mt-2.5">Subscribe to News</h3>
             <div className="flex space-x-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className={`input-field ${
-                  email && !isEmailValid() ? "border-red-500" : "border-focus"
-                }`}
-                value={email}
-                onChange={handleEmailChange}
-              />
-              {email && !isEmailValid() && (
-                <p className="error-text">
+              <div className="flex flex-col justify-center items-center">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  className={`${
+                    email && !isEmailValid() ? "border-red-500" : ""
+                  }`}
+                  value={email}
+                  onChange={handleEmailChange}
+                />
+                <p
+                  className={`error-text transition-opacity duration-300 ${
+                    email && !isEmailValid() ? "opacity-100" : "opacity-0"
+                  }`}
+                >
                   Please enter a valid email address.
                 </p>
-              )}
+              </div>
               <Button type="submit" className="h-10 text-sm">
                 Subscribe
               </Button>

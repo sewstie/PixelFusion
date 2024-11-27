@@ -14,11 +14,13 @@
   "attributes": {
     "Title": {
       "type": "string",
-      "required": true
+      "required": true,
+      "maxLength": 20
     },
     "Description": {
       "type": "string",
-      "required": true
+      "required": true,
+      "maxLength": 60
     },
     "slug": {
       "type": "uid",
@@ -44,11 +46,12 @@
       ]
     },
     "Unity": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "files"
-      ],
-      "type": "media",
-      "multiple": true
+      ]
     }
   }
 }

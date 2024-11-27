@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "../../components/UI/button";
 import { Link } from "react-router-dom";
 import Blob from "../../components/UI/Blob";
+import { Input } from "@/components/ui/input";
 
 const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,12 +43,10 @@ const SignIn = () => {
         <form>
           <div className="mb-4">
             <label className="form-label">Email</label>
-            <input
+            <Input
               type="email"
               placeholder="Enter your email"
-              className={`input-field ${
-                email && !isEmailValid() ? "border-red-500" : "border-focus"
-              }`}
+              className={`${email && !isEmailValid() ? "border-red-500" : ""}`}
               value={email}
               onChange={handleEmailChange}
             />
@@ -58,14 +57,12 @@ const SignIn = () => {
           <div className="mb-4 relative">
             <label className="form-label">Password</label>
             <div className="relative">
-              <input
+              <Input
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                className={`input-field ${
-                  password && !isPasswordValid()
-                    ? "border-red-500"
-                    : "border-focus"
-                } relative pr-10`}
+                className={`relative pr-10 ${
+                  password && !isPasswordValid() ? "border-red-500" : ""
+                }`}
                 value={password}
                 onChange={handlePasswordChange}
               />

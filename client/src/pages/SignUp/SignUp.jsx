@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button } from "../../components/UI/button";
 import { Link } from "react-router-dom";
 import Blob from "../../components/UI/Blob";
+import { Input } from "@/components/ui/input";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -56,7 +57,7 @@ const SignUp = () => {
         <form>
           <div className="mb-4">
             <label className="form-label">Username</label>
-            <input
+            <Input
               type="text"
               placeholder="Enter your username"
               className="input-field"
@@ -66,12 +67,10 @@ const SignUp = () => {
           </div>
           <div className="mb-4">
             <label className="form-label">Email</label>
-            <input
+            <Input
               type="email"
               placeholder="Enter your email"
-              className={`input-field ${
-                email && !isEmailValid() ? "border-red-500" : "border-focus"
-              }`}
+              className={`${email && !isEmailValid() ? "border-red-500" : ""}`}
               value={email}
               onChange={handleEmailChange}
             />
@@ -82,14 +81,12 @@ const SignUp = () => {
           <div className="mb-4 relative">
             <label className="form-label">Password</label>
             <div className="relative">
-              <input
+              <Input
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter your password"
-                className={`input-field ${
-                  password && !isPasswordValid()
-                    ? "border-red-500"
-                    : "border-focus"
-                } relative pr-10`}
+                className={`relative pr-10 ${
+                  password && !isPasswordValid() ? "border-red-500" : ""
+                }`}
                 value={password}
                 onChange={handlePasswordChange}
               />
@@ -112,13 +109,13 @@ const SignUp = () => {
           </div>
           <div className="mb-4 relative">
             <label className="form-label">Confirm Password</label>
-            <input
-              type="text" // Changed to text to make it visible by default
+            <Input
+              type="password"
               placeholder="Confirm your password"
-              className={`input-field ${
+              className={`${
                 confirmPassword && !isConfirmPasswordValid()
                   ? "border-red-500"
-                  : "border-focus"
+                  : ""
               }`}
               value={confirmPassword}
               onChange={handleConfirmPasswordChange}
