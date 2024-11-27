@@ -8,7 +8,6 @@ import accountIcon from "../../assets/account.svg";
 const Account = () => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -37,7 +36,6 @@ const Account = () => {
       setPasswordError("Passwords do not match.");
     } else {
       setPasswordError("");
-      // Proceed with password change logic
     }
   };
 
@@ -58,20 +56,30 @@ const Account = () => {
     <section className="container mx-auto pt-32 pb-20 relative overflow-hidden">
       <Blob className="left-10" />
       <div className="p-8">
-        <div className="flex items-center mb-6">
-          <img
-            src={accountIcon}
-            alt="Account Icon"
-            className="w-28 h-28 mr-8"
-          />
-          <div>
-            <h2 className="text-4xl  title">
-              Hello <span className="underline text-focus">user</span>
-            </h2>
-            <p className="text text-xl mt-5">
-              You can see the history of games you played.
-            </p>
+        <div className="flex justify-between">
+          <div className="flex items-center mb-6">
+            <img
+              src={accountIcon}
+              alt="Account Icon"
+              className="w-28 h-28 mr-8"
+            />
+            <div>
+              <h2 className="text-4xl  title">
+                Hello <span className="underline text-focus">user</span>
+              </h2>
+              <p className="text text-xl mt-5">
+                You can see the history of games you played.
+              </p>
+            </div>
           </div>
+          <Button
+            variant="default"
+            size="default"
+            className="w-32 h-12 text-lg mr-12 my-auto"
+            type="submit"
+          >
+            Log Out
+          </Button>
         </div>
       </div>
       <form onSubmit={handlePasswordChange}>
@@ -135,7 +143,7 @@ const Account = () => {
           <div className="w-1/3">
             <label className="form-label">Confirm Password</label>
             <input
-              type="text" // Changed to make visible by default
+              type="text"
               placeholder="Confirm your new password"
               className="input-field border-focus relative"
               value={confirmPassword}

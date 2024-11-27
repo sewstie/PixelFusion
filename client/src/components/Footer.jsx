@@ -15,7 +15,7 @@ const Footer = () => {
   };
 
   return (
-    <section className="bg-bg-900/20 backdrop-blur-2xl lg:bg-vulcan-900/0 pb-8">
+    <section className="border-b relatve bg-bg-900/20 border-white/5 backdrop-blur-2xl lg:bg-vulcan-900/0 pb-8 pt-5">
       <div className="container mx-auto">
         <div className="flex justify-between lg:gap-12 flex-wrap">
           <div className="flex flex-col justify-between gap-8">

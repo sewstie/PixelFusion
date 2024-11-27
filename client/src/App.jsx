@@ -12,7 +12,7 @@ import Home from "./pages/Home/Home";
 import Browse from "./pages/Browse/Browse";
 import Contact from "./pages/Contact/Contact";
 import Game from "./pages/Game/Game";
-import SignIn from "./pages/SignIn/SignIn";
+import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import PasswordReset from "./pages/PasswordReset/PasswordReset";
 import License from "./pages/License";
@@ -44,7 +44,7 @@ function App() {
           <Route path="/browse" element={<Browse />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/game/:slug" element={<Game />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/forgot-password" element={<PasswordReset />} />{" "}
           <Route path="/license" element={<License />} />
