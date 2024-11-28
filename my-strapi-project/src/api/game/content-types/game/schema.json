@@ -52,6 +52,18 @@
       "allowedTypes": [
         "files"
       ]
+    },
+    "nickname": {
+      "type": "string",
+      "required": true
+    },
+    "profilePicture": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

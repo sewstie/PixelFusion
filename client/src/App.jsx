@@ -7,13 +7,11 @@ import {
 } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import Home from "./pages/Home/Home";
 import Browse from "./pages/Browse/Browse";
 import Game from "./pages/Game/Game";
-import Login from "./pages/Login/Login";
-import SignUp from "./pages/SignUp/SignUp";
-import PasswordReset from "./pages/PasswordReset/PasswordReset";
 import License from "./pages/License";
 import Account from "./pages/Account/Account";
 import AddGame from "./pages/AddGame/AddGame";
@@ -34,6 +32,12 @@ const ScrollToTop = () => {
 };
 
 function App() {
+  const { isLoading } = useAuth0();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Router>
       <ScrollToTop />
@@ -43,9 +47,6 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/browse" element={<Browse />} />
           <Route path="/game/:slug" element={<Game />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/forgot-password" element={<PasswordReset />} />{" "}
           <Route path="/license" element={<License />} />
           <Route path="/account" element={<Account />} />
           <Route path="/add-your-game" element={<AddGame />} />

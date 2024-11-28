@@ -42,8 +42,18 @@ const Game = () => {
     return <p>Game not found.</p>;
   }
 
-  const { Title, Description, backgroundImage, UnityFile } = game;
+  const {
+    Title,
+    Description,
+    backgroundImage,
+    UnityFile,
+    nickname,
+    profilePicture,
+  } = game;
   const unityGameUrl = UnityFile ? `${BASE_URL}${UnityFile.url}` : null;
+  const profilePictureUrl = profilePicture
+    ? `${BASE_URL}${profilePicture.url}`
+    : null;
 
   return (
     <>
@@ -63,6 +73,22 @@ const Game = () => {
         <div className="flex flex-col">
           <h1 className="title text-4xl">{Title}</h1>
           <p className="text text-xl mt-4">{Description}</p>
+          <div className="flex items-center mt-4">
+            {profilePictureUrl ? (
+              <img
+                src={profilePictureUrl}
+                alt={nickname}
+                className="w-8 h-8 rounded-full mr-2"
+              />
+            ) : (
+              <img
+                src={accountIcon}
+                alt="No user"
+                className="w-8 h-8 rounded-full mr-2"
+              />
+            )}
+            <span className="text text-lg">{nickname || "No user"}</span>
+          </div>
         </div>
         <div className="flex flex-col justify-center">
           <Button className="w-44 h-14 text-lg" onClick={() => navigate("/")}>

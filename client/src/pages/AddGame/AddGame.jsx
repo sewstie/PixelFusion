@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Blob from "../../components/UI/Blob";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/UI/button";
 
 const AddGame = () => {
   const [email, setEmail] = useState("");
@@ -45,6 +46,7 @@ const AddGame = () => {
 
   return (
     <div className="container mx-auto pt-32 pb-20 relative overflow-hidden">
+      <Blob className="left-[5rem] opacity-15 top-20" />
       <h2 className="title text-3xl">Your Game Submission</h2>
       <h4 className="text text-lg pt-3">
         Fill out the form to submit your game
@@ -134,6 +136,9 @@ const AddGame = () => {
           )}
         </div>
       </div>
+      <Button variant="default" size="lg" className="mt-10 text-lg">
+        Submit Game
+      </Button>
     </div>
   );
 };

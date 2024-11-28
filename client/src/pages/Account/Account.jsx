@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "../../components/UI/button";
 import Blob from "../../components/UI/Blob";
 import { fetchGames, BASE_URL } from "@/api/api";
@@ -7,6 +8,19 @@ import accountIcon from "../../assets/account.svg";
 import { Input } from "@/components/ui/input";
 
 const Account = () => {
+  const { isAuthenticated, user, isLoading, loginWithRedirect, logout } =
+    useAuth0();
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      loginWithRedirect();
+    }
+  }, [isLoading, isAuthenticated, loginWithRedirect]);
+
+  if (isLoading || !isAuthenticated) {
+    return <div>Loading...</div>;
+  }
+
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
@@ -40,6 +54,14 @@ const Account = () => {
     }
   };
 
+  const handleChangePassword = () => {
+    window.location.href = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/v2/logout?client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}&returnTo=${window.location.origin}/change-password`;
+  };
+
+  const handleSubmitGame = () => {
+    window.location.href = "/addgame";
+  };
+
   const renderedGames = useMemo(() => {
     return games.map((game) => (
       <Block
@@ -54,108 +76,45 @@ const Account = () => {
   }, [games]);
 
   return (
-    <section className="container mx-auto pt-32 pb-20 relative overflow-hidden">
-      <Blob className="left-10" />
+    <section className="container mx-auto pt-32 pb-6 relative overflow-hidden">
+      <Blob className="left-10 top-8 opacity-30" />
       <div className="p-8">
         <div className="flex justify-between">
           <div className="flex items-center mb-6">
             <img
-              src={accountIcon}
+              src={user.picture}
               alt="Account Icon"
-              className="w-28 h-28 mr-8"
+              className="w-28 h-28 mr-8 rounded-full"
             />
             <div>
               <h2 className="text-4xl  title">
-                Hello <span className="underline text-focus">user</span>
+                Hello{" "}
+                <span className="underline text-focus">{user.nickname}</span>
               </h2>
               <p className="text text-xl mt-5">
                 You can see the history of games you played.
               </p>
             </div>
           </div>
-          <Button
-            variant="default"
-            size="default"
-            className="w-32 h-12 text-lg mr-12 my-auto"
-            type="submit"
-          >
-            Log Out
-          </Button>
-        </div>
-      </div>
-      <form onSubmit={handlePasswordChange}>
-        <div className="flex mb-4 justify-center gap-16">
-          <div className="w-1/3">
-            <label className="form-label">Current Password</label>
-            <div className="relative">
-              <Input
-                type={showCurrentPassword ? "text" : "password"}
-                placeholder="Enter your current password"
-                className="relative pr-10"
-                value={currentPassword}
-                onChange={handleInputChange(setCurrentPassword)}
-              />
-              <img
-                src={
-                  showCurrentPassword
-                    ? "../src/assets/opened-1.svg"
-                    : "../src/assets/closed-1.svg"
-                }
-                alt="Toggle visibility"
-                onClick={() => handlePasswordToggle(setShowCurrentPassword)}
-                className="icon-eye absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer"
-              />
-            </div>
-          </div>
-          <div className="w-1/3">
-            <label className="form-label">New Password</label>
-            <div className="relative">
-              <Input
-                type={showNewPassword ? "text" : "password"}
-                placeholder="Enter your new password"
-                className="relative pr-10"
-                value={newPassword}
-                onChange={handleInputChange(setNewPassword)}
-              />
-              <img
-                src={
-                  showNewPassword
-                    ? "../src/assets/opened-1.svg"
-                    : "../src/assets/closed-1.svg"
-                }
-                alt="Toggle visibility"
-                onClick={() => handlePasswordToggle(setShowNewPassword)}
-                className="icon-eye absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer"
-              />
-            </div>
-          </div>
-        </div>
-        <div className="flex mb-4 justify-center gap-16 align-middle">
-          <div className="w-1/3 flex items-end">
+          <div className="flex flex-col items-center">
             <Button
               variant="default"
               size="default"
-              className="w-full h-12 text-lg"
-              type="submit"
+              className="w-32 h-12 text-lg mt-6"
+              onClick={() => logout({ returnTo: window.location.origin })}
+            >
+              Log Out
+            </Button>
+            <p
+              className="text text-focus cursor-pointer mt-4"
+              onClick={handleChangePassword}
             >
               Change Password
-            </Button>
-          </div>
-          <div className="w-1/3">
-            <label className="form-label">Confirm Password</label>
-            <Input
-              type="password"
-              placeholder="Confirm your new password"
-              value={confirmPassword}
-              onChange={handleInputChange(setConfirmPassword)}
-            />
+            </p>
           </div>
         </div>
-        {passwordError && (
-          <p className="error-text text-center mt-2">{passwordError}</p>
-        )}
-      </form>
-      <div className="mt-12">
+      </div>
+      <div className="mt-4">
         <h2 className="text-3xl mb-6 text-left text-title font-roboto">
           Game History
         </h2>
@@ -163,6 +122,20 @@ const Account = () => {
           {renderedGames}
         </div>
       </div>
+      <div className="mt-16 flex flex-col items-center">
+        <h2 className="text-3xl mb-4 text-title">
+          Ready to share your creation with us?
+        </h2>
+        <Button
+          variant="default"
+          size="default"
+          className="w-42 h-12 text-lg mt-6"
+          onClick={handleSubmitGame}
+        >
+          Submit Your Game
+        </Button>
+      </div>
+      <Blob className="right-[5rem] bottom-[-10rem] opacity-20" />
     </section>
   );
 };
