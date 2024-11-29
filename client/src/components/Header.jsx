@@ -1,13 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext"; // New import
+import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"; // New imports
+import { auth } from "../firebaseConfig"; // New import
 
 import logo from "../assets/logo.svg";
 import browseIcon from "../assets/game.svg";
-import signInIcon from "../assets/account.svg";
+import accountIcon from "../assets/account.svg"; // Updated import
 
 const Header = () => {
-  const { isAuthenticated, user, loginWithRedirect } = useAuth0();
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(auth, provider);
+  };
+
+  const handleLogout = async () => {
+    await signOut(auth);
+  };
+
+  const handleAccountClick = () => {
+    if (currentUser) {
+      navigate("/account");
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <section className="px-2 fixed z-50 w-full bg-bg h-20 flex items-center">
@@ -20,22 +40,13 @@ const Header = () => {
             <Link to="/browse" className="cursor-pointer">
               <img src={browseIcon} alt="Browse" className="w-10 h-10" />
             </Link>
-            {isAuthenticated ? (
-              <Link to="/account" className="cursor-pointer">
-                <img
-                  src={user.picture}
-                  alt={user.name}
-                  className="w-10 h-10 rounded-full"
-                />
-              </Link>
-            ) : (
-              <button
-                onClick={() => loginWithRedirect()}
-                className="cursor-pointer"
-              >
-                <img src={signInIcon} alt="Sign In" className="w-10 h-10" />
-              </button>
-            )}
+            <button onClick={handleAccountClick} className="cursor-pointer">
+              <img
+                src={currentUser?.photoURL || accountIcon}
+                alt={currentUser?.displayName || "Account"}
+                className={`w-10 h-10 ${currentUser ? "rounded-full" : ""}`}
+              />
+            </button>
           </div>
         </div>
       </div>

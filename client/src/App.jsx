@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { useAuth0 } from "@auth0/auth0-react";
+import { AuthProvider } from "./contexts/AuthContext.jsx";
 
 import Home from "./pages/Home/Home";
 import Browse from "./pages/Browse/Browse";
@@ -15,6 +15,8 @@ import Game from "./pages/Game/Game";
 import License from "./pages/License";
 import Account from "./pages/Account/Account";
 import AddGame from "./pages/AddGame/AddGame";
+import Login from "./pages/Login/Login";
+import SignUp from "./pages/SignUp/SignUp"; // Import SignUp component
 
 const HeaderWrapper = () => {
   const location = useLocation();
@@ -32,29 +34,27 @@ const ScrollToTop = () => {
 };
 
 function App() {
-  const { isLoading } = useAuth0();
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <Router>
-      <ScrollToTop />
-      <HeaderWrapper />
-      <section>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/browse" element={<Browse />} />
-          <Route path="/game/:slug" element={<Game />} />
-          <Route path="/license" element={<License />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/add-your-game" element={<AddGame />} />
-        </Routes>
-      </section>
-      <Footer />
-    </Router>
+    <AuthProvider>
+      {" "}
+      <Router>
+        <ScrollToTop />
+        <HeaderWrapper />
+        <section>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/browse" element={<Browse />} />
+            <Route path="/game/:slug" element={<Game />} />
+            <Route path="/license" element={<License />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/add-your-game" element={<AddGame />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} /> {/* Add this route */}
+          </Routes>
+        </section>
+        <Footer />
+      </Router>
+    </AuthProvider>
   );
 }
-
 export default App;

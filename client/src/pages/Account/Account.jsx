@@ -1,33 +1,24 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
 import { Button } from "../../components/UI/button";
 import Blob from "../../components/UI/Blob";
 import { fetchGames, BASE_URL } from "@/api/api";
 import Block from "../Home/components/UI/Block";
 import accountIcon from "../../assets/account.svg";
-import { Input } from "@/components/ui/input";
+import { useAuth } from "../../contexts/AuthContext";
+import { auth } from "../../firebaseConfig";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Account = () => {
-  const { isAuthenticated, user, isLoading, loginWithRedirect, logout } =
-    useAuth0();
+  const { currentUser } = useAuth();
+  const [games, setGames] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      loginWithRedirect();
+    if (!currentUser) {
+      navigate("/login"); // Redirect to login if not authenticated
     }
-  }, [isLoading, isAuthenticated, loginWithRedirect]);
-
-  if (isLoading || !isAuthenticated) {
-    return <div>Loading...</div>;
-  }
-
-  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [currentPassword, setCurrentPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [games, setGames] = useState([]);
-  const [passwordError, setPasswordError] = useState("");
+  }, [currentUser, navigate]);
 
   useEffect(() => {
     const getGames = async () => {
@@ -37,29 +28,13 @@ const Account = () => {
     getGames();
   }, []);
 
-  const handlePasswordToggle = (setter) => {
-    setter((prev) => !prev);
-  };
-
-  const handleInputChange = (setter) => (e) => {
-    setter(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    e.preventDefault();
-    if (newPassword !== confirmPassword) {
-      setPasswordError("Passwords do not match.");
-    } else {
-      setPasswordError("");
-    }
-  };
-
-  const handleChangePassword = () => {
-    window.location.href = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/v2/logout?client_id=${process.env.REACT_APP_AUTH0_CLIENT_ID}&returnTo=${window.location.origin}/change-password`;
-  };
-
   const handleSubmitGame = () => {
     window.location.href = "/addgame";
+  };
+
+  const handleLogout = async () => {
+    await signOut(auth);
+    navigate("/");
   };
 
   const renderedGames = useMemo(() => {
@@ -82,14 +57,16 @@ const Account = () => {
         <div className="flex justify-between">
           <div className="flex items-center mb-6">
             <img
-              src={user.picture}
+              src={currentUser?.photoURL || accountIcon}
               alt="Account Icon"
               className="w-28 h-28 mr-8 rounded-full"
             />
             <div>
               <h2 className="text-4xl  title">
                 Hello{" "}
-                <span className="underline text-focus">{user.nickname}</span>
+                <span className="underline text-focus">
+                  {currentUser?.displayName || "User"}
+                </span>
               </h2>
               <p className="text text-xl mt-5">
                 You can see the history of games you played.
@@ -100,17 +77,11 @@ const Account = () => {
             <Button
               variant="default"
               size="default"
-              className="w-32 h-12 text-lg mt-6"
-              onClick={() => logout({ returnTo: window.location.origin })}
+              className="mt-6"
+              onClick={handleLogout}
             >
-              Log Out
+              Logout
             </Button>
-            <p
-              className="text text-focus cursor-pointer mt-4"
-              onClick={handleChangePassword}
-            >
-              Change Password
-            </p>
           </div>
         </div>
       </div>
