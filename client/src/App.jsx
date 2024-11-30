@@ -16,7 +16,8 @@ import License from "./pages/License";
 import Account from "./pages/Account/Account";
 import AddGame from "./pages/AddGame/AddGame";
 import Login from "./pages/Login/Login";
-import SignUp from "./pages/SignUp/SignUp"; // Import SignUp component
+import SignUp from "./pages/SignUp/SignUp";
+import PasswordReset from "./pages/PasswordReset/PasswordReset";
 
 const HeaderWrapper = () => {
   const location = useLocation();
@@ -49,7 +50,8 @@ function App() {
             <Route path="/account" element={<Account />} />
             <Route path="/add-your-game" element={<AddGame />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} /> {/* Add this route */}
+            <Route path="/signup" element={<SignUp />} />{" "}
+            <Route path="/password-reset" element={<PasswordReset />} />
           </Routes>
         </section>
         <Footer />

@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext"; // New import
-import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth"; // New imports
-import { auth } from "../firebaseConfig"; // New import
+import { useAuth } from "../contexts/AuthContext";
+import { signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { auth } from "../firebaseConfig";
 
 import logo from "../assets/logo.svg";
 import browseIcon from "../assets/game.svg";
-import accountIcon from "../assets/account.svg"; // Updated import
+import accountIcon from "../assets/account.svg";
 
 const Header = () => {
   const { currentUser } = useAuth();

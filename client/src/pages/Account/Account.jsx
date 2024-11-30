@@ -8,17 +8,24 @@ import { useAuth } from "../../contexts/AuthContext";
 import { auth } from "../../firebaseConfig";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
 
 const Account = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, loading } = useAuth();
   const [games, setGames] = useState([]);
   const navigate = useNavigate();
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   useEffect(() => {
-    if (!currentUser) {
-      navigate("/login"); // Redirect to login if not authenticated
+    if (!loading && !currentUser) {
+      navigate("/login");
     }
-  }, [currentUser, navigate]);
+  }, [currentUser, loading, navigate]);
 
   useEffect(() => {
     const getGames = async () => {
@@ -35,6 +42,18 @@ const Account = () => {
   const handleLogout = async () => {
     await signOut(auth);
     navigate("/");
+  };
+
+  const handleInputChange = (setter) => (e) => {
+    setter(e.target.value);
+  };
+
+  const handlePasswordToggle = (setter) => {
+    setter((prev) => !prev);
+  };
+
+  const handlePasswordChange = (e) => {
+    e.preventDefault();
   };
 
   const renderedGames = useMemo(() => {
@@ -84,6 +103,89 @@ const Account = () => {
             </Button>
           </div>
         </div>
+
+        <form onSubmit={handlePasswordChange}>
+          <div className="flex w-7/12 my-4 justify-center gap-4">
+            <div className="w-full">
+              <label className="form-label">Current Password</label>
+              <div className="relative">
+                <Input
+                  type={showCurrentPassword ? "text" : "password"}
+                  placeholder="Enter your current password"
+                  className="relative pr-10"
+                  value={currentPassword}
+                  onChange={handleInputChange(setCurrentPassword)}
+                />
+                <img
+                  src={
+                    showCurrentPassword
+                      ? "../src/assets/opened-1.svg"
+                      : "../src/assets/closed-1.svg"
+                  }
+                  alt="Toggle visibility"
+                  onClick={() => handlePasswordToggle(setShowCurrentPassword)}
+                  className="icon-eye absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer"
+                />
+              </div>
+            </div>
+            <div className="w-full">
+              <label className="form-label">New Password</label>
+              <div className="relative">
+                <Input
+                  type={showNewPassword ? "text" : "password"}
+                  placeholder="Enter your new password"
+                  className="relative pr-10"
+                  value={newPassword}
+                  onChange={handleInputChange(setNewPassword)}
+                />
+                <img
+                  src={
+                    showNewPassword
+                      ? "../src/assets/opened-1.svg"
+                      : "../src/assets/closed-1.svg"
+                  }
+                  alt="Toggle visibility"
+                  onClick={() => handlePasswordToggle(setShowNewPassword)}
+                  className="icon-eye absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer"
+                />
+              </div>
+            </div>
+          </div>
+          <div className="flex mb-4 justify-center gap-4 items-center">
+            <div className="">
+              <Button
+                variant="default"
+                size="default"
+                type="submit"
+                className="mb-1"
+              >
+                Change Password
+              </Button>
+            </div>
+            <div className="">
+              <label className="form-label">Confirm New Password</label>
+              <div className="relative">
+                <Input
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm your new password"
+                  className="relative pr-10"
+                  value={confirmPassword}
+                  onChange={handleInputChange(setConfirmPassword)}
+                />
+                <img
+                  src={
+                    showConfirmPassword
+                      ? "../src/assets/opened-1.svg"
+                      : "../src/assets/closed-1.svg"
+                  }
+                  alt="Toggle visibility"
+                  onClick={() => handlePasswordToggle(setShowConfirmPassword)}
+                  className="icon-eye absolute top-1/2 transform -translate-y-1/2 right-2 cursor-pointer"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
       <div className="mt-4">
         <h2 className="text-3xl mb-6 text-left text-title font-roboto">

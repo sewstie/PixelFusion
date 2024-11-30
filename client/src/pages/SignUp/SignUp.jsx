@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Button } from "../../components/UI/button";
-import { Link, useNavigate } from "react-router-dom"; // Added useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import Blob from "../../components/UI/Blob";
 import { Input } from "@/components/ui/input";
-import { auth } from "../../firebaseConfig"; // Import auth
+import { auth } from "../../firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
-  updateProfile, // Import updateProfile
-} from "firebase/auth"; // Import necessary Firebase functions
+  updateProfile,
+} from "firebase/auth";
+import GoogleLogo from "../../assets/google.svg";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,8 +18,8 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // Add error message state
-  const navigate = useNavigate(); // Initialize navigate
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
@@ -55,12 +56,12 @@ const SignUp = () => {
         password
       );
       await updateProfile(userCredential.user, {
-        displayName: username, // Set the display name
+        displayName: username,
       });
-      navigate("/account"); // Navigate to account page upon successful sign-up
+      navigate("/account");
     } catch (error) {
       console.error(error);
-      setErrorMessage(error.message); // Handle error
+      setErrorMessage(error.message);
     }
   };
 
@@ -68,10 +69,10 @@ const SignUp = () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      navigate("/account"); // Navigate to account page upon successful sign-up
+      navigate("/account");
     } catch (error) {
       console.error(error);
-      setErrorMessage(error.message); // Handle error
+      setErrorMessage(error.message);
     }
   };
 
@@ -85,9 +86,6 @@ const SignUp = () => {
         <p className="text-xl text-center mb-6 text-text font-inter">
           Please enter your details
         </p>
-        {errorMessage && (
-          <p className="text-red-500 text-center mb-4">{errorMessage}</p>
-        )}
         <form onSubmit={handleEmailSignUp}>
           <div className="mb-4">
             <label className="form-label">Username</label>
@@ -164,12 +162,16 @@ const SignUp = () => {
             className="w-full flex items-center justify-center mb-6"
             onClick={handleGoogleSignUp}
           >
-            <span className="ml-2">Sign up with Google</span>
+            <img src={GoogleLogo} alt="Google logo" className="w-8" />
+            <span>Sign up with Google</span>
           </Button>
           <div className="text-center text-white mb-4">Or With</div>
           <Button variant="default" size="default" className="w-full">
             Sign Up
           </Button>
+          {errorMessage && (
+            <p className="text-red-500 text-center mb-4">{errorMessage}</p>
+          )}
         </form>
         <p className="text-white text-center mt-6">
           Already have an account?{" "}

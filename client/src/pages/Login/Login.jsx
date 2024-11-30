@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "../../components/UI/button";
 import { Link } from "react-router-dom";
 import Blob from "../../components/UI/Blob";
@@ -10,13 +10,22 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import GoogleLogo from "../../assets/google.svg";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Login = () => {
+  const { currentUser, loading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && currentUser) {
+      navigate("/account");
+    }
+  }, [currentUser, loading, navigate]);
 
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
@@ -75,9 +84,6 @@ const Login = () => {
         <p className="text-xl text-center mb-6 text-text font-inter">
           Please enter your details
         </p>
-        {errorMessage && (
-          <p className="text-red-500 text-center mb-4">{errorMessage}</p>
-        )}
         <form onSubmit={handleEmailLogin}>
           <div className="mb-4">
             <label className="form-label">Email</label>
@@ -129,7 +135,7 @@ const Login = () => {
               />
               <span className="text-white ml-2">Remember me</span>
             </label>
-            <Link to="/forgot-password" className="text-focus underline">
+            <Link to="/password-reset" className="text-focus underline">
               Forgot password?
             </Link>
           </div>
@@ -139,7 +145,8 @@ const Login = () => {
             className="w-full flex items-center justify-center mb-6"
             onClick={handleGoogleLogin}
           >
-            <span className="ml-2">Sign in with Google</span>
+            <img src={GoogleLogo} alt="Google logo" className="w-8" />
+            <span>Sign in with Google</span>
           </Button>
           <div className="text-center text-white mb-4">Or With</div>
           <Button
@@ -150,6 +157,9 @@ const Login = () => {
           >
             Login
           </Button>
+          {errorMessage && (
+            <p className="text-red-500 text-center mb-4">{errorMessage}</p>
+          )}
         </form>
         <p className="text-white text-center mt-6">
           Don't have an account?{" "}
