@@ -18,6 +18,7 @@ import AddGame from "./pages/AddGame/AddGame";
 import Login from "./pages/Login/Login";
 import SignUp from "./pages/SignUp/SignUp";
 import PasswordReset from "./pages/PasswordReset/PasswordReset";
+import PasswordResetConfirm from "./pages/PasswordResetConfirm/PasswordResetConfirm";
 
 const HeaderWrapper = () => {
   const location = useLocation();
@@ -37,7 +38,6 @@ const ScrollToTop = () => {
 function App() {
   return (
     <AuthProvider>
-      {" "}
       <Router>
         <ScrollToTop />
         <HeaderWrapper />
@@ -50,8 +50,12 @@ function App() {
             <Route path="/account" element={<Account />} />
             <Route path="/add-your-game" element={<AddGame />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />{" "}
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/password-reset" element={<PasswordReset />} />
+            <Route
+              path="/password-reset-confirm"
+              element={<PasswordResetConfirm />}
+            />
           </Routes>
         </section>
         <Footer />
@@ -59,4 +63,5 @@ function App() {
     </AuthProvider>
   );
 }
+
 export default App;

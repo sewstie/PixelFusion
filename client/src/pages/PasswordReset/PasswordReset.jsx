@@ -26,7 +26,11 @@ const PasswordReset = () => {
       return;
     }
     try {
-      await sendPasswordResetEmail(auth, email);
+      const actionCodeSettings = {
+        url: `${window.location.origin}/password-reset-confirm`,
+        handleCodeInApp: false,
+      };
+      await sendPasswordResetEmail(auth, email, actionCodeSettings);
       setSuccessMessage("Password reset email sent. Please check your inbox.");
       setErrorMessage("");
     } catch (error) {

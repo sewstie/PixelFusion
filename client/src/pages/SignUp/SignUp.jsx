@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "../../components/UI/button";
 import { Link, useNavigate } from "react-router-dom";
 import Blob from "../../components/UI/Blob";
@@ -11,8 +11,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 import GoogleLogo from "../../assets/google.svg";
+import { useAuth } from "../../contexts/AuthContext";
 
 const SignUp = () => {
+  const { currentUser, loading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,6 +22,12 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && currentUser) {
+      navigate("/account");
+    }
+  }, [currentUser, loading, navigate]);
 
   const handlePasswordToggle = () => {
     setShowPassword(!showPassword);
